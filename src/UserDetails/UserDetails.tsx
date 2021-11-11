@@ -79,6 +79,7 @@ export const UserDetails = ({ onMsg }: Props) => {
           </Typography>
         </Box>
         <Button
+          data-testid={`${user?.id}-view-posts`}
           size="small"
           onClick={() =>
             user?.id && onMsg({ type: 'view_posts_clicked', userId: user?.id })

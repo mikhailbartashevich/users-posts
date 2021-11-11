@@ -12,8 +12,6 @@ import { getUsers } from '../api/user/user';
 import { User, Msg as UserMsg } from '../User/User';
 import { notReachable } from '../utils/utils';
 
-// TODO: wrap content inside the page layout with header
-
 export type Msg = UserMsg;
 
 const LIMIT_PER_PAGE = 10;
@@ -125,7 +123,7 @@ export const UserList = ({ onMsg }: Props) => {
       <Box
         sx={{ width: '100%', mt: 3, ml: 2, display: 'flex', flexWrap: 'wrap' }}
       >
-        {users?.data.length ? (
+        {users?.data?.length ? (
           users?.data.map((user: UserType) => (
             <Box key={user.id} sx={{ m: 1 }}>
               <User user={user} onMsg={onUserMsg} />

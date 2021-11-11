@@ -37,6 +37,7 @@ export const User = ({ user, onMsg }: Props) => {
     <Card sx={{ minWidth: 300 }}>
       <CardContent>
         <Badge
+          data-testid={`${user.id}-posts-badge`}
           color="primary"
           badgeContent={isLoading || isError ? 'loading' : posts?.total}
           title="Posts"
@@ -51,12 +52,14 @@ export const User = ({ user, onMsg }: Props) => {
       </CardContent>
       <CardActions>
         <Button
+          data-testid={`${user.id}-profile-details`}
           size="small"
           onClick={() => onMsg({ type: 'user_name_clicked', userId: user.id })}
         >
           Profile Details
         </Button>
         <Button
+          data-testid={`${user.id}-view-posts`}
           size="small"
           onClick={() => onMsg({ type: 'view_posts_clicked', userId: user.id })}
         >

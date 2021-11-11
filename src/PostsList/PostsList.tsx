@@ -48,11 +48,7 @@ export const PostsList = ({ onMsg }: Props) => {
     keepPreviousData: true,
   });
 
-  const {
-    data: user,
-    isLoading: isLoadingUser,
-    isError: isErrorUser,
-  } = useQuery({
+  const { data: user } = useQuery({
     queryKey: ['userDetails', { userId }],
     queryFn: () => getUserDetails('userDetails', { userId }),
     select: (response) => response.data,
@@ -151,7 +147,7 @@ export const PostsList = ({ onMsg }: Props) => {
         {posts?.data?.length ? (
           posts?.data.map((post: PostType) => (
             <Box key={post.id} sx={{ m: 1 }}>
-              <Post post={post} onMsg={onPostMsg} />
+              <Post post={post} withComments onMsg={onPostMsg} />
             </Box>
           ))
         ) : (

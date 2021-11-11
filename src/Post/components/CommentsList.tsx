@@ -11,9 +11,10 @@ import { getCommentsByPostId } from '../../api/comment/comment';
 
 type Props = {
   postId: string;
+  withComments: boolean;
 };
 
-export const CommentsList = ({ postId }: Props) => {
+export const CommentsList = ({ postId, withComments }: Props) => {
   const {
     data: comments,
     isLoading,
@@ -58,11 +59,19 @@ export const CommentsList = ({ postId }: Props) => {
 
   return (
     <>
-      <Typography variant="h6" color="text.secondary">
+      <Typography
+        data-testid={`${postId}-comments`}
+        variant="h6"
+        color="text.secondary"
+      >
         Comments ({comments?.total})
       </Typography>
-      <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
-        {comments?.data &&
+      <List
+        data-testid={`${postId}-list-comments`}
+        sx={{ width: '100%', bgcolor: 'background.paper' }}
+      >
+        {withComments &&
+          comments?.data &&
           comments?.data.slice(0, 2).map((comment) => {
             const user = comment.owner;
             const name = `${user?.title} ${user?.firstName} ${user?.lastName}`;

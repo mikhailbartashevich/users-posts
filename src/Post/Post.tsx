@@ -16,10 +16,11 @@ export type Msg =
 
 type Props = {
   post: PostType;
+  withComments?: boolean;
   onMsg(msg: Msg): void;
 };
 
-export const Post = ({ post, onMsg }: Props) => {
+export const Post = ({ post, withComments = false, onMsg }: Props) => {
   const user = post.owner;
   const name = `${user.title} ${user.firstName} ${user.lastName}`;
   return (
@@ -34,6 +35,7 @@ export const Post = ({ post, onMsg }: Props) => {
         <Box sx={{ display: 'flex', mb: 2 }}>
           <Avatar alt={name} src={user.picture} sx={{ mr: 1 }} />
           <Button
+            data-testid={`${post.id}-user-name`}
             variant="text"
             onClick={() =>
               onMsg({ type: 'user_name_clicked', userId: user.id })
@@ -51,6 +53,7 @@ export const Post = ({ post, onMsg }: Props) => {
           {post.tags.map((tag) => (
             <Box key={tag} sx={{ mr: 1 }}>
               <Chip
+                data-testid={`${post.id}-${tag}-tag`}
                 label={tag}
                 color="primary"
                 onClick={() => onMsg({ type: 'tag_clicked', tag })}
@@ -59,8 +62,7 @@ export const Post = ({ post, onMsg }: Props) => {
           ))}
         </Box>
         <Box>
-
-          <CommentsList postId={post.id} />
+          <CommentsList withComments={withComments} postId={post.id} />
         </Box>
       </CardContent>
       <CardActions></CardActions>
